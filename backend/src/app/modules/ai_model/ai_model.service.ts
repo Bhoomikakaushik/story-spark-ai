@@ -19,13 +19,13 @@ const AI_TIMEOUT_MS = 60000;
 const AI_FREE_TIMEOUT_MS = 10000;
 
 const aiModelGenerate = async (payload: IAIModel, token: ITokenPayload) => {
-  const { prompt, wordLength, numStories } = payload;
+  const { prompt, wordLength, numStories, language } = payload;
 
  main
 
   try {
     const result = await raceGenerationWithTimeout(
-      () => generateAlternateEndingsWithGemini(title, content, tag),
+      () => generateAlternateEndingsWithGemini(title, content, tag, language),
       AUTHENTICATED_GENERATION_TIMEOUT_MS
     );
     assertSuccessfulGeneration(result, ALTERNATE_ENDING_FAILED_MESSAGE);
