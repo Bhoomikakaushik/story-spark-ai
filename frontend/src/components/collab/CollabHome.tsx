@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { connectSocket } from "../../socket/socket.oi";
+import { getUserInfo, isLoggedIn } from "../../services/auth.service";
+import { io } from "socket.io-client"; // Imported to resolve namespace path mappings if needed
 // Socket.IO collab disabled (see CollabRoom). Previous: io, Socket, resolveSocketUrl, BACKEND_URL.
 
 export default function CollabHome() {
@@ -20,17 +23,18 @@ export default function CollabHome() {
         setError(
           "Socket.IO connection failed. Please check VITE_SOCKET_URL in frontend/.env"
         );
+        setIsCreating(false);
         return;
       }
 
-      const collabSocket = socket;
+      const collabSocket = socket.io.socket("/collab");
 
       collabSocket.emit(
         "collab:create_room",
         { userId: user?.userId, username: user?.name },
-        (response: { roomId: string } | null) => {
-          if (response && response.roomId) {
-            navigate(`/collab/${response.roomId}`);
+        (response: unknown) => {
+          if (response && (response as { roomId: string }).roomId) {
+            navigate(`/collab/${(response as { roomId: string }).roomId}`);
           } else {
             setError("Failed to create room. Please try again.");
           }
