@@ -22,6 +22,7 @@ import { AnalyticsRouter } from "../app/modules/analytics/analytics.router";
 import { BugReportRouter } from "../app/modules/bug_report/bug_report.router";
 import { RecommendationRouter } from "../app/modules/recommendation/recommendation.router";
 import { WriterApplicationRoutes } from "../app/modules/writer_application/writer_application.route";
+import { StoryVisualizerRouter } from "../app/modules/story_visualizer/story_visualizer.router";
 
 const router = express.Router();
 
@@ -113,6 +114,10 @@ const modules = [
   {
     path: "/writer-applications",
     router: WriterApplicationRoutes,
+  },
+  {
+    path: "/story-visualizer",
+    router: StoryVisualizerRouter,
   },
 ];
 modules.forEach((route) => router.use(route.path, route.router));
