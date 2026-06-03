@@ -12,6 +12,7 @@ Place at: story-spark-ai/ml/detect.py
 
 import os
 import json
+from pathlib import Path
 import numpy as np
 import joblib
 import random
@@ -21,9 +22,11 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 from tensorflow.keras.models import load_model
 from model import SEQ_LEN, N_FEATURES
 
-MODEL_PATH = "saved/model.keras"
-SCALER_PATH = "saved/scaler.pkl"
-THRESHOLD_PATH = "saved/threshold.json"
+# Resolve absolute paths anchored to this file's location
+ML_DIR = Path(__file__).resolve().parent
+MODEL_PATH = str(ML_DIR / "saved" / "model.keras")
+SCALER_PATH = str(ML_DIR / "saved" / "scaler.pkl")
+THRESHOLD_PATH = str(ML_DIR / "saved" / "threshold.json")
 
 _ML_ASSETS_CACHE = None
 
