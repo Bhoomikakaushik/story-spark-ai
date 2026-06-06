@@ -85,7 +85,7 @@ const LoginComponent = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0B1120] text-slate-900 dark:text-slate-100 flex items-center justify-center relative overflow-hidden px-4 box-border">
-      {/* Background Glow */}
+      {/* Background Glow*/}
       <motion.div 
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -117,8 +117,8 @@ const LoginComponent = () => {
 
 
 
-        {/* Right side — login form card */}
-        <div className="w-full max-w-md bg-slate-50 dark:bg-slate-800/60 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 sm:p-10 shadow-2xl">
+        {/* Right side — login form card*/}
+        <div className="w-full max-w-md bg-slate-50 dark:bg-slate-800/60 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 sm:p-10 shadow-2xl overflow-hidden">
           {/* Back to Home */}
           <button
             onClick={() => (window.location.href = "/")}
@@ -136,7 +136,7 @@ const LoginComponent = () => {
             </p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-5 w-full box-border" onSubmit={handleSubmit(onSubmit)}>
             <SSInput
               label="Email address"
               name="email"
@@ -191,7 +191,8 @@ const LoginComponent = () => {
             </div>
           </div>
 
-          {/* Social Identity OAuth Block Container */}          <div className="flex justify-center w-full box-border">
+          {/* Social Identity OAuth Block Container */}         
+          <div className="flex justify-center w-full box-border">
             <GoogleLogin
               onSuccess={handleGoogleLoginSuccess}
               onError={handleGoogleLoginError}
