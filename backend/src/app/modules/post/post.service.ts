@@ -372,7 +372,7 @@ const getSinglePost = async (id: string) => {
   return postById;
 };
 
-const getPostsByTag = async (tag: string, excludeId?: string) => {
+const getPostsByTag = async (tag: string, excludeId?: string, limit: number = 10) => {
   if (!tag) {
     return [];
   }
@@ -381,8 +381,10 @@ const getPostsByTag = async (tag: string, excludeId?: string) => {
   if (excludeId) {
     query._id = { $ne: excludeId };
   }
+  // limit was previously hardcoded as 2 — now accepts a caller-supplied
+  // value (default 10, max 50) so the route handler can expose it as a query param
   const result = await Post.find(query)
-    .limit(2)
+    .limit(Math.min(limit, 50))
     .populate("author", "name email createdAt")
     .populate({
       path: "reactions",
